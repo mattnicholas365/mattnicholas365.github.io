@@ -774,9 +774,9 @@ End Team Section -->
         }
       });
 
-      const result = await response.json();  // Parse JSON
-
       loading.style.display = "none";
+
+      const result = await response.json();
 
       if (response.ok && result.ok) {
         // Success
@@ -784,8 +784,8 @@ End Team Section -->
         errorMessage.style.display = "none";
         form.reset();
       } else {
-        // Error
-        errorMessage.textContent = result.error || "An error occurred while submitting the form.";
+        // Handle unexpected JSON response
+        errorMessage.textContent = "An error occurred while submitting the form.";
         errorMessage.style.display = "block";
         sentMessage.style.display = "none";
       }
