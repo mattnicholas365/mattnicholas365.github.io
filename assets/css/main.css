@@ -863,17 +863,18 @@ section,
 
 .hero .badge-overlay {
   position: absolute;
-  bottom: 20px;
-  right: 20px;
-  width: 100px;
+  top: 20px;
+  left: 20px;
+  width: 80px;   /* adjust size as needed */
   height: auto;
   z-index: 2;
-  transition: transform 0.3s ease, filter 0.3s ease;
+  opacity: 0.85;  /* optional: adjust for a subtle overlay */
+  transition: transform 0.3s ease, opacity 0.3s ease;
 }
 
 .hero .badge-overlay:hover {
   transform: scale(1.05);
-  filter: brightness(1.1);
+  opacity: 1;
 }
 
 .hero img {
