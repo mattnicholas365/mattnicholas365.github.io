@@ -868,16 +868,12 @@ section,
   width: 100px;
   height: auto;
   z-index: 2;
-  animation: floatUpDown 3s ease-in-out infinite;
+  transition: transform 0.3s ease, filter 0.3s ease;
 }
 
-@keyframes floatUpDown {
-  0%, 100% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(-5px);
-  }
+.hero .badge-overlay:hover {
+  transform: scale(1.05);
+  filter: brightness(1.1);
 }
 
 .hero img {
