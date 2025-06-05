@@ -861,6 +861,25 @@ section,
   justify-content: center;
 }
 
+.hero .badge-overlay {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  width: 100px;
+  height: auto;
+  z-index: 2;
+  animation: floatUpDown 3s ease-in-out infinite;
+}
+
+@keyframes floatUpDown {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-5px);
+  }
+}
+
 .hero img {
   position: absolute;
   inset: 0;
