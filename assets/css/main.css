@@ -851,14 +851,14 @@ section,
 /*--------------------------------------------------------------
 # Hero Section
 --------------------------------------------------------------*/
-.hero {
+.hero img {
+  position: absolute;
+  inset: 0;
+  display: block;
   width: 100%;
-  min-height: 100vh;
-  position: relative;
-  padding: 120px 0 80px 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  height: 100%;
+  object-fit: cover;
+  z-index: 1;
 }
 
 .hero img.background-image {
