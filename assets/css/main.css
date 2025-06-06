@@ -18,13 +18,15 @@
 }
 
 /* Global Colors - The following color variables are used throughout the website. Updating them here will change the color scheme of the entire website */
-:root { 
-  --background-color: #ffffff; /* Background color for the entire website, including individual sections */
-  --default-color: #444444; /* Default color used for the majority of the text content across the entire website */
-  --heading-color: #151515; /* Color for headings, subheadings and title throughout the website */
-  --accent-color: #ffc451; /* Accent color that represents your brand on the website. It's used for buttons, links, and other elements that need to stand out */
-  --surface-color: #ffffff; /* The surface color is used as a background of boxed elements within sections, such as cards, icon boxes, or other elements that require a visual separation from the global background. */
-  --contrast-color: #312f2f; /* Contrast color for text, ensuring readability against backgrounds of accent, heading, or default colors. */
+:root {
+  --background-color: #0D1B2A;
+  --default-color: #EDEDED;
+  --heading-color: #FFFFFF;
+  --accent-color: #FFC451;
+  --surface-color: #1B263B;
+  --contrast-color: #FFFFFF;
+  --nav-color: rgba(255, 255, 255, 0.9);
+  --nav-hover-color: var(--accent-color);
 }
 
 /* Nav Menu Colors - The following color variables are used specifically for the navigation menu. They are separate from the global colors to allow for more customization options */
@@ -61,9 +63,18 @@
 # General Styling & Shared Classes
 --------------------------------------------------------------*/
 body {
-  color: var(--default-color);
+  font-family: 'Roboto', sans-serif;
   background-color: var(--background-color);
-  font-family: var(--default-font);
+  color: var(--default-color);
+  scroll-behavior: smooth;
+  margin: 0;
+  padding: 0;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Raleway', sans-serif;
+  font-weight: 600;
+  color: var(--heading-color);
 }
 
 a {
@@ -74,17 +85,10 @@ a {
 
 a:hover {
   color: color-mix(in srgb, var(--accent-color), transparent 25%);
-  text-decoration: none;
 }
 
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  color: var(--heading-color);
-  font-family: var(--heading-font);
+.section {
+  padding: 60px 0;
 }
 
 
@@ -144,15 +148,43 @@ h6 {
 # Global Header
 --------------------------------------------------------------*/
 .header {
-  --background-color: rgba(0, 0, 0, 0.8);
-  --heading-color: #ffffff;
-  --contrast-color: #ffffff;
-  color: var(--default-color);
-  background-color: var(--background-color);
+  background: rgba(0, 0, 0, 0.85);
+  position: fixed;
+  width: 100%;
+  z-index: 999;
+  transition: background 0.3s, box-shadow 0.3s;
   padding: 10px 0;
-  transition: all 0.5s;
-  z-index: 997;
 }
+
+.header.scrolled {
+  background: rgba(0, 0, 0, 0.9);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+}
+
+.header .logo img {
+  max-height: 36px;
+  margin-right: 8px;
+}
+
+.header .logo h1 {
+  font-size: 16px;
+  margin: 0;
+  font-weight: 700;
+}
+
+.navmenu a {
+  color: var(--nav-color);
+  padding: 15px 20px;
+  display: inline-block;
+  font-size: 16px;
+  transition: color 0.3s;
+}
+
+.navmenu a:hover,
+.navmenu .active {
+  color: var(--nav-hover-color);
+}
+
 
 .header .logo {
   line-height: 1;
@@ -512,6 +544,47 @@ h6 {
 # Global Footer
 --------------------------------------------------------------*/
 .footer {
+  background: #1B263B;
+  color: var(--default-color);
+  padding: 40px 0;
+}
+
+.footer a {
+  color: var(--default-color);
+  transition: color 0.3s;
+}
+
+.footer a:hover {
+  color: var(--accent-color);
+}
+
+.footer h4 {
+  font-size: 16px;
+  font-weight: bold;
+  margin-bottom: 15px;
+}
+
+.footer .newsletter-form input[type="email"] {
+  padding: 10px;
+  border-radius: 4px 0 0 4px;
+  border: none;
+  width: 70%;
+}
+
+.footer .newsletter-form input[type="submit"] {
+  background: var(--accent-color);
+  color: var(--contrast-color);
+  border-radius: 0 4px 4px 0;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.footer .newsletter-form input[type="submit"]:hover {
+  background: color-mix(in srgb, var(--accent-color), transparent 20%);
+}
+.footer {
   color: var(--default-color);
   background-color: var(--background-color);
   font-size: 14px;
@@ -851,6 +924,55 @@ section,
 /*--------------------------------------------------------------
 # Hero Section
 --------------------------------------------------------------*/
+.hero {
+  position: relative;
+  text-align: center;
+  padding: 150px 20px 100px;
+  background: linear-gradient(rgba(13,27,42,0.85), rgba(13,27,42,0.85)),
+              url('../img/hero-bg.png') center center/cover no-repeat;
+  color: var(--default-color);
+}
+
+.hero .badge-overlay {
+  position: absolute;
+  top: 30px;
+  left: 30px;
+  width: 100px;
+  opacity: 0.8;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.hero .badge-overlay:hover {
+  transform: scale(1.05);
+  opacity: 1;
+}
+
+.hero h2 {
+  font-size: 48px;
+  margin-bottom: 20px;
+}
+
+.hero p {
+  font-size: 20px;
+  max-width: 600px;
+  margin: 0 auto 30px;
+  line-height: 1.5;
+}
+
+.cta-button {
+  background: var(--accent-color);
+  color: var(--contrast-color);
+  border-radius: 4px;
+  padding: 12px 30px;
+  font-size: 18px;
+  font-weight: 500;
+  transition: background 0.3s;
+}
+
+.cta-button:hover {
+  background: color-mix(in srgb, var(--accent-color), transparent 20%);
+}
+
 .hero img {
   position: absolute;
   inset: 0;
@@ -1792,4 +1914,16 @@ section,
 --------------------------------------------------------------*/
 .starter-section {
   /* Add your styles here */
+}
+
+/*--------------------
+  Miscellaneous
+--------------------*/
+@media (max-width: 768px) {
+  .hero h2 {
+    font-size: 32px;
+  }
+  .hero p {
+    font-size: 18px;
+  }
 }
