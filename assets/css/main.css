@@ -1327,6 +1327,25 @@ section,
   transform: translateY(-10px);
 }
 
+.services-list a {
+  display: block;
+  padding: 10px 15px;
+  color: var(--text-color, #ffffff);
+  text-decoration: none;
+  border-left: 4px solid transparent;
+  transition: background-color 0.3s, border-left 0.3s;
+}
+
+.services-list a.active {
+  background-color: #ffc107; /* Yellow background (or use your variable) */
+  color: #000000;            /* Black text for contrast */
+  border-left: 4px solid #f39c12; /* Optional: accent border */
+}
+
+.services-list a:hover {
+  background-color: rgba(255, 193, 7, 0.2); /* Subtle yellow on hover */
+}
+
 /*--------------------------------------------------------------
 # Call To Action Section
 --------------------------------------------------------------*/
