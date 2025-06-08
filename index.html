@@ -904,21 +904,25 @@ End Team Section -->
 <!-- Cookie Preferences Modal -->
 <div id="cookie-preferences-modal" class="cookie-preferences-modal">
   <div class="modal-dialog">
-    <div class="modal-content">
-      <h3>Cookie Preferences</h3>
+    <div class="modal-content p-4">
+      <h3 class="mb-3">Cookie Preferences</h3>
       <p>Select which cookies you’d like to accept:</p>
       <form id="cookie-preferences-form">
-        <div class="form-check">
+        <div class="form-check mb-2">
           <input type="checkbox" name="essential" id="essential" checked disabled class="form-check-input">
           <label for="essential" class="form-check-label">Essential Cookies (Required)</label>
         </div>
-        <div class="form-check">
+        <div class="form-check mb-2">
           <input type="checkbox" name="analytics" id="analytics" class="form-check-input">
           <label for="analytics" class="form-check-label">Analytics Cookies</label>
         </div>
-        <div class="form-check">
+        <div class="form-check mb-2">
           <input type="checkbox" name="marketing" id="marketing" class="form-check-input">
           <label for="marketing" class="form-check-label">Marketing Cookies</label>
+        </div>
+        <div class="form-check mb-2">
+          <input type="checkbox" name="performance" id="performance" class="form-check-input">
+          <label for="performance" class="form-check-label">Performance Cookies</label>
         </div>
         <div class="text-end mt-3">
           <button type="submit" class="btn btn-primary">Save Preferences</button>
@@ -928,6 +932,30 @@ End Team Section -->
   </div>
 </div>
 
+<style>
+  .cookie-preferences-modal {
+    display: none;
+    position: fixed;
+    z-index: 9999;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.6);
+    overflow: auto;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .cookie-preferences-modal .modal-dialog {
+    background: #fff;
+    border-radius: 8px;
+    max-width: 500px;
+    width: 90%;
+    margin: auto;
+  }
+</style>
+
 <script>
   document.addEventListener("DOMContentLoaded", function() {
     const banner = document.getElementById("cookie-consent-banner");
@@ -936,29 +964,35 @@ End Team Section -->
     const preferencesModal = document.getElementById("cookie-preferences-modal");
     const preferencesForm = document.getElementById("cookie-preferences-form");
 
+    // Show banner if cookies not accepted yet
     if (!localStorage.getItem("cookiesAccepted")) {
       banner.style.display = "block";
     }
 
+    // Accept all cookies
     acceptAllButton.addEventListener("click", function() {
       localStorage.setItem("cookiesAccepted", JSON.stringify({
         essential: true,
         analytics: true,
-        marketing: true
+        marketing: true,
+        performance: true
       }));
       banner.style.display = "none";
     });
 
+    // Open preferences modal
     preferencesButton.addEventListener("click", function() {
       preferencesModal.style.display = "flex";
     });
 
+    // Save preferences
     preferencesForm.addEventListener("submit", function(e) {
       e.preventDefault();
       const preferences = {
         essential: true,
         analytics: preferencesForm.elements['analytics'].checked,
-        marketing: preferencesForm.elements['marketing'].checked
+        marketing: preferencesForm.elements['marketing'].checked,
+        performance: preferencesForm.elements['performance'].checked
       };
       localStorage.setItem("cookiesAccepted", JSON.stringify(preferences));
       banner.style.display = "none";
