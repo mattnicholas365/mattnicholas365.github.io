@@ -887,19 +887,89 @@ End Team Section -->
   });
 </script>
 
+<!-- Cookie Consent Banner -->
+<div id="cookie-consent-banner" class="cookie-consent-banner">
+  <div class="container d-flex justify-content-between align-items-center">
+    <p class="mb-0">
+      This website uses cookies to enhance your experience.
+      <a href="privacy-policy.html" class="text-white text-decoration-underline">Learn more</a>.
+    </p>
+    <div class="button-group">
+      <button id="accept-all-cookies" class="btn btn-primary">Accept All</button>
+      <button id="cookie-preferences-button" class="btn btn-outline-light">Preferences</button>
+    </div>
+  </div>
+</div>
+
+<!-- Cookie Preferences Modal -->
+<div id="cookie-preferences-modal" class="cookie-preferences-modal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <h3>Cookie Preferences</h3>
+      <p>Select which cookies you’d like to accept:</p>
+      <form id="cookie-preferences-form">
+        <div class="form-check">
+          <input type="checkbox" name="essential" id="essential" checked disabled class="form-check-input">
+          <label for="essential" class="form-check-label">Essential Cookies (Required)</label>
+        </div>
+        <div class="form-check">
+          <input type="checkbox" name="analytics" id="analytics" class="form-check-input">
+          <label for="analytics" class="form-check-label">Analytics Cookies</label>
+        </div>
+        <div class="form-check">
+          <input type="checkbox" name="marketing" id="marketing" class="form-check-input">
+          <label for="marketing" class="form-check-label">Marketing Cookies</label>
+        </div>
+        <div class="text-end mt-3">
+          <button type="submit" class="btn btn-primary">Save Preferences</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
 <script>
   document.addEventListener("DOMContentLoaded", function() {
     const banner = document.getElementById("cookie-consent-banner");
-    const acceptButton = document.getElementById("accept-cookies");
+    const acceptAllButton = document.getElementById("accept-all-cookies");
+    const preferencesButton = document.getElementById("cookie-preferences-button");
+    const preferencesModal = document.getElementById("cookie-preferences-modal");
+    const preferencesForm = document.getElementById("cookie-preferences-form");
 
-    // Check if cookies have been accepted
     if (!localStorage.getItem("cookiesAccepted")) {
       banner.style.display = "block";
     }
 
-    acceptButton.addEventListener("click", function() {
-      localStorage.setItem("cookiesAccepted", "true");
+    acceptAllButton.addEventListener("click", function() {
+      localStorage.setItem("cookiesAccepted", JSON.stringify({
+        essential: true,
+        analytics: true,
+        marketing: true
+      }));
       banner.style.display = "none";
+    });
+
+    preferencesButton.addEventListener("click", function() {
+      preferencesModal.style.display = "flex";
+    });
+
+    preferencesForm.addEventListener("submit", function(e) {
+      e.preventDefault();
+      const preferences = {
+        essential: true,
+        analytics: preferencesForm.elements['analytics'].checked,
+        marketing: preferencesForm.elements['marketing'].checked
+      };
+      localStorage.setItem("cookiesAccepted", JSON.stringify(preferences));
+      banner.style.display = "none";
+      preferencesModal.style.display = "none";
+    });
+
+    // Close modal on click outside
+    window.addEventListener("click", function(e) {
+      if (e.target === preferencesModal) {
+        preferencesModal.style.display = "none";
+      }
     });
   });
 </script>
